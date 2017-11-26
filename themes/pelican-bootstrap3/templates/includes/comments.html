@@ -1,0 +1,34 @@
+{% if DUOSHUO_SITENAME %}
+    <hr/>
+    <script type="text/javascript">    
+    {% if article %}
+        {% if not DISQUS_NO_ID %}
+            var duoshuo_identifier = '{{ article.date|strftime('%Y-%m-') ~ article.slug if DISQUS_ID_PREFIX_SLUG else article.slug }}';
+        {% endif %}
+        var duoshuo_url = '{{ SITEURL }}/{{ article.url }}';
+    {% elif page %}
+        {% if not DISQUS_NO_ID %}
+            var duoshuo_identifier = 'page-{{ page.slug }}';
+        {% endif %}
+        var duoshuo_url = '{{ SITEURL }}/{{ page.url }}';
+    {% endif %}
+    </script>
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="{{ duoshuo_identifier }}" data-title="{{ article.title }}" data-url="{{ duoshuo_url }}"></div>
+    <!-- 多说评论框 end -->
+    
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"blackfox1983"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+<!-- 多说公共JS代码 end -->
+{% endif %}
+
